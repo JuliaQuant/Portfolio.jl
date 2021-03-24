@@ -3,6 +3,7 @@ include("src/Portfolio.jl")
 Pkg.add(["TimeSeries", "MarketData", "Plots", "Pipe"])
 using Pipe: @pipe
 using TimeSeries, MarketData, Plots
+using Portfolio
 
 function strategy_tearsheet(signal::TimeArray, returns::TimeArray)
     signal_returns = generate_signal_returns(returns, signal, 0.0)
