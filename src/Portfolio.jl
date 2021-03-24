@@ -8,6 +8,7 @@ module Portfolio
     include("dsp.jl")
     include("performance-analytics.jl")
     include("operations.jl")
+    include("signals.jl")
     include("strategies-single.jl")
     include("strategies-portfolio.jl")
     include("statistics.jl")
@@ -33,9 +34,10 @@ module Portfolio
         ensemble_parameters, merge_weights,
         # compute
         run_weights,
-        # strategies
-        strategy_positive_mom_binary, strategy_prive_above_sma_binary, strategy_vol_target_mean, strategy_vol_target, strategy_vol_threshold, strategy_semideviation_target_mean, strategy_semideviation_threshold
-
+        # strategies-single
+        strategy_positive_mom_binary, strategy_prive_above_sma_binary, strategy_vol_target_mean, strategy_vol_target, strategy_vol_threshold, strategy_semideviation_target_mean, strategy_semideviation_threshold,
+        # strategies-portfolio
+        strategy_static_weights, strategy_static_equal_weights
 
 
 end

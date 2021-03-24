@@ -2,7 +2,7 @@
 
 ## Returns
 function returns_annualized(rets::Returns)::Float64
-    return return_annualized(values(rets))
+    return returns_annualized(values(rets))
 end
 
 function returns_annualized(rets::AbstractArray{Float64})::Float64
@@ -32,12 +32,12 @@ end
 ## Frequently used quantiative measurements
 
 function sharpe_annualized(rets::Union{Returns, AbstractArray{Float64}})::Float64
-    return round(return_annualized(rets) / std_annualized(rets), digits = 3)
+    return round(returns_annualized(rets) / std_annualized(rets), digits = 3)
 end
 
 
 function sortino_annualized(rets::Union{Returns, AbstractArray{Float64}})::Float64
-    return round(return_annualized(rets) / semid_annualized(rets), digits = 3)
+    return round(returns_annualized(rets) / semid_annualized(rets), digits = 3)
 end
 
 

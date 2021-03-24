@@ -1,9 +1,9 @@
 
 
-function static_weights(t::Returns, ratio::Vector{Float64})::Weights
-    return TimeSeries.map((timestamp, value) -> (timestamp, ratio), t)
+function strategy_static_weights(returns::Returns, ratio::Vector{Float64})::Weights
+    return TimeSeries.map((timestamp, value) -> (timestamp, ratio), returns)
 end
 
-function static_equal_weights(t::Returns)::Weights
-    return TimeSeries.map((timestamp, value) -> (timestamp, repeat(1 / length(colnames(t)), length(colnames(t)))), t)
+function strategy_static_equal_weights(returns::Returns)::Weights
+    return TimeSeries.map((timestamp, value) -> (timestamp, repeat([1 / length(colnames(returns))], length(colnames(returns)))), returns)
 end

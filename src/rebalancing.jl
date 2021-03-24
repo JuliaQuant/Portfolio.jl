@@ -1,5 +1,5 @@
 
-function skip_period(t::Weights, interval::Integer)::Weights
+function rebalance_every_n_days(t::Weights, interval::Integer)::Weights
     counter = 0
     last_value = 0.0
 
@@ -14,4 +14,9 @@ function skip_period(t::Weights, interval::Integer)::Weights
         end
     end
     return TimeArray(timestamp(t), map(mapping, values(t))) |> dropnan
+end
+
+
+function rebalance_once(t::Weights)::Weights
+    return t[1]
 end
