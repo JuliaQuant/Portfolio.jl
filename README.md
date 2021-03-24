@@ -55,23 +55,27 @@ A mean reversion strategy could be to transform the output of RSI into a continu
 
 
 ### Brokerage
+```
 struct Brokerage
 	commission::Float64
 	maxSlippage::Float64
 	borrowing_costs::TimeSeries
 	# etc.
 end
+```
 
 ### PortfolioReturns
+```
 struct PortfolioReturns
 	composition::Weights # the weights that were actually used (potentially after some normalization)
 	individualReturns::Returns # (for every asset, separately, this is useful for calculating risk contribution, etc)
 	returns::Returns # for the whole of the portfolio
 end
+```
 
 ### run_weights()
 
-function run(returns::Returns, weights::Weights, brokerage::Brokerage)::PortfolioReturns
+`function run(returns::Returns, weights::Weights, brokerage::Brokerage)::PortfolioReturns`
 
 The reason why it's useful to separate out Weights creation process (responsiblity of Strategy) from generating the portfolio returns, is that it makes composing strategies a lot easier.
 You can now average multiple strategy's weights, or make them conditional (multiply them), and create a composite strategy (the heart of quantiative portfolio management!).
@@ -79,7 +83,7 @@ You can now average multiple strategy's weights, or make them conditional (multi
 
 ### run_strategy()
 
-function run(returns::Returns, strategy::Strategy, brokerage::Brokerage)::PortfolioReturns
+`function run(returns::Returns, strategy::Strategy, brokerage::Brokerage)::PortfolioReturns`
 
 Convenience function that you can use to also run a strategy straight on the returns, and discard the intemerdiate "Weights" type.
 
@@ -88,6 +92,7 @@ You'd pass in PortfolioReturns, and potentially a benchmark, and this would gene
 
 # Process of applying one strategy
 
+```
 no_costs_broker = Broker(transaction_costs = 0.0, initial_cash = 100_000)
 asset_returns = load(:AlphaVantage, :SPY) # done by a separate package
 unemployment_signal = load(:FRED, :UNRATE) # done by a separate package
@@ -97,8 +102,11 @@ strategy_unemployment_above_sma_12 = @strategy unemployment_signal .> sma(unempl
 results = run(asset_returns, strategy_unemployment_above_sma_12, no_costs_broker)
 
 portfolio_tearsheet(results, benchmark = asset_returns)
+```
 
 # Composing two strategies
+
+```
 no_costs_broker = Broker(transaction_costs = 0.0, initial_cash = 100_000)
 asset_returns = load(:AlphaVantage, :SPY) # done by a separate package
 unemployment_signal = load(:FRED, :UNRATE) # done by a separate package
@@ -112,3 +120,4 @@ composite_weights = merge_signals([strategy_unemployment_above_sma_12, strategy_
 results = run(asset_returns, composite_weights, no_costs_broker)
 
 portfolio_tearsheet(results, benchmark = asset_returns)
+```
