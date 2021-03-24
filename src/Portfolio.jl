@@ -27,7 +27,7 @@ module Portfolio
         # utils
         equity_curve,
         # rebalancing
-        skip_period,
+        rebalance_every_n_days, rebelance_once,
         # performance-analytics
         returns_annualized, std_annualized, semid_annualized, sharpe_annualized, sortino_annualized,
         # operations

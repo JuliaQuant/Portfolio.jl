@@ -22,10 +22,9 @@ yahoo(:TLT)
 
 assets = merge(dell, aapl)
 
-Portfolio.strategy_static_equal_weights(assets)
 strategy_tearsheet(Portfolio.strategy_static_equal_weights(assets), assets)
 strategy_tearsheet(Portfolio.strategy_static_equal_weights(assets) |> Portfolio.rebalance_once, assets)
 
-run_weights(assets, Portfolio.strategy_static_equal_weights(assets) |> Portfolio.rebalance_once) |> sharpe_annualized
+run_weights(assets, Portfolio.strategy_static_equal_weights(assets) |> Portfolio.rebalance_once)
 
 Portfolio.strategy_static_equal_weights(assets) |> Portfolio.rebalance_once
