@@ -1,12 +1,12 @@
 
 
-
-
 function strategy_positive_mom_binary(t::Returns, lookback::Integer)::Weights
     return @pipe moving(mean, t, lookback) |>
         TimeSeries.map((timestamp, value) -> (timestamp, value >= 0 ? 1 : 0), _) |>
         TimeSeries.lag(_, 1)
 end
+
+
 
 
 function strategy_prive_above_sma_binary(t::Returns, lookback::Integer)::Weights
@@ -37,6 +37,9 @@ function strategy_vol_threshold(threshold::Float64)
             TimeSeries.map((timestamp, value) -> (timestamp, value <= threshold ? 1 : 0), _)
     end
 end
+
+
+
 
 
 function strategy_semideviation_target_mean(t::Returns, lookback::Integer)::Weights

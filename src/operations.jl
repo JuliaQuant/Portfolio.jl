@@ -9,7 +9,7 @@ function ensemble_parameters(strategy::Function, returns::Returns, ensembleRange
     return weights[colnames(weights)[1]]
 end
 
-function merge_weights(weights)::Weights
+function merge_weights(weights::Array{Weights})::Weights
     common = TimeSeries.merge(weights...)
     target = common[colnames(common)[1]]
     for col in colnames(common)

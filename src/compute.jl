@@ -1,5 +1,5 @@
 
-function run_weights(returns::Returns, weights::Weights, transaction_costs::Float64= 0.005)::Returns
+function run_weights(returns::Returns, weights::TimeArray{T,1}, transaction_costs::Float64 = 0.005)::Returns  where {T}
     last_weights = nothing
     function mapping(timestamp, value)
         if isnothing(weights[timestamp]) && isnothing(last_weights)
@@ -14,4 +14,11 @@ function run_weights(returns::Returns, weights::Weights, transaction_costs::Floa
         end
     end
     return map(mapping, returns) |> dropnan
+end
+
+function run_weights(returns::TimeArray, weights::TimeArray{T,2}, transaction_costs::Float64 = 0.005) where {T}
+    individual_returns = map(colnames(weights)) do col_name
+        return run_weights(returns[col_name], weights[col_name])
+    end
+    return TimeSeries.merge(individual_returns..., method = :outer) |> sum_rows
 end
