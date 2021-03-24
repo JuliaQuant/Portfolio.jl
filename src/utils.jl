@@ -1,3 +1,5 @@
-function returns_cumprod(t::TimeArray)::TimeArray
-    TimeSeries.cumprod(1 .+ t, dims = 1)
+
+
+function equity_curve(returns::TimeArray)::TimeArray
+    TimeSeries.cumprod(1 .+ returns, dims = 1)
 end

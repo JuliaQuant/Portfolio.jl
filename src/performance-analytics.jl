@@ -1,11 +1,11 @@
 # Performance analytics
 
 ## Returns
-function return_annualized(rets::TimeArray)::Float64
+function returns_annualized(rets::Returns)::Float64
     return return_annualized(values(rets))
 end
 
-function return_annualized(rets::AbstractArray{Float64})::Float64
+function returns_annualized(rets::AbstractArray{Float64})::Float64
     n = 252 / length(rets)
     overall_return = last(cumprod(1 .+ rets))
     return round((overall_return ^ (n))-1, digits = 3)
@@ -31,12 +31,12 @@ end
 
 ## Frequently used quantiative measurements
 
-function sharpe_annualized(rets::Union{TimeArray, AbstractArray{Float64}})::Float64
+function sharpe_annualized(rets::Union{Returns, AbstractArray{Float64}})::Float64
     return round(return_annualized(rets) / std_annualized(rets), digits = 3)
 end
 
 
-function sortino_annualized(rets::Union{TimeArray, AbstractArray{Float64}})::Float64
+function sortino_annualized(rets::Union{Returns, AbstractArray{Float64}})::Float64
     return round(return_annualized(rets) / semid_annualized(rets), digits = 3)
 end
 
@@ -45,10 +45,10 @@ end
 ## Drawdowns, etc.
 
 
-function drawdown(ta::TimeArray)
-    ta_cumprod = returns_cumprod(ta)
-    return upto(maximum, ta_cumprod)
-end
+# function drawdown(ta::TimeArray)
+#     ta_cumprod = returns_cumprod(ta)
+#     return upto(maximum, ta_cumprod)
+# end
 
 ## Rolling metrics
 
