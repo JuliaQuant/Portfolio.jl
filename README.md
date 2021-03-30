@@ -1,3 +1,5 @@
+# This is pretty much work in progress, I assume everything will change :)
+
 # How is this different to other "backtesters"?
 
 
